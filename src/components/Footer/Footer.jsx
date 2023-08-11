@@ -1,12 +1,12 @@
 import React from 'react';
 import withLanguage from '../../hocs/withLanguage';
 
-const Header = ({ content }) => {
+const Footer = ({ content }) => {
   
     return (
             <div>
-              <h1>This is the header</h1>
+              <h1>This is the footer</h1>
             </div>
             )};
 
-export default withLanguage(Header, "Header");
+export default withLanguage(Footer, "Footer");
