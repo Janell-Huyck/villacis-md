@@ -1,4 +1,5 @@
-export default {
+// eslint-disable-next-line no-unused-vars
+const content = {
     title: "Health Connections Direct Primary Care",
     subtitle: "Primary Care and Immigration Physicals",
     slogan: "Healthcare the way it should be",
@@ -18,3 +19,4 @@ export default {
     ],
     immigrationText: "We also offer immigration physicals for those seeking to become permanent residents of the United States.",
 }
+export default content;

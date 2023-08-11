@@ -1,4 +1,5 @@
-export default {
+// eslint-disable-next-line no-unused-vars
+const content = {
     title: "Health Connections Direct Primary Care",
     subtitle: "Exámenes físicos de atención primaria e inmigración",
     slogan: "El cuidado de la salud como debe ser",
@@ -18,3 +19,4 @@ export default {
     ],
     immigrationText: "También ofrecemos exámenes físicos de inmigración para aquellos que buscan convertirse en residentes permanentes de los Estados Unidos.",
 }
+export default content;
