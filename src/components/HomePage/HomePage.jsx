@@ -7,20 +7,35 @@ import { BackgroundImageWrapper, HeroContent, MainContent, HomePageContainer } f
 const HomePage = ({ content }) => {
   // use graphql to retrieve the background image
   const data = useStaticQuery(graphql`
-  query {
-    backgroundImage: file(relativePath: { eq: "brainz.jpg" }) {
-      childImageSharp {
-        gatsbyImageData(layout: FULL_WIDTH, formats: AUTO)
+    query {
+      file(relativePath: { eq: "brainz.jpg" }) {
+        childImageSharp {
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            aspectRatio: 1
+            transformOptions: { fit: COVER, cropFocus: NORTH }
+          )
+        }
       }
     }
-  }
-`);
+  `);
 
-const image = getImage(data.backgroundImage);
+const image = getImage(data.file.childImageSharp.gatsbyImageData);
 
   return (<HomePageContainer>
             <BackgroundImageWrapper id="landing-image-and-hero">
-              <GatsbyImage id="background-image" image={image} alt="Background Image" style={{ position: 'absolute', width:'100vw', height:'100vh' }} />
+              <GatsbyImage id="background-image" 
+                           image={image} 
+                           alt="Background Image" 
+                           style={{
+                            position: 'absolute',
+                            width: '100vw',
+                            height: '100vh',
+                            objectFit: 'scale-down',
+                            objectPosition: 'left top',
+                            top: '0',
+                            zIndex: '-1',
+                            }} />
               <HeroContent id="hero-content">
                 <h1>{content.title}</h1>
                 <h2>{content.subtitle}</h2>
