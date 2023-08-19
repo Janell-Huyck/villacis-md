@@ -21,10 +21,11 @@ export const Nav = styled.nav`
     flex-direction: column;
     align-items: stretch;
     width: 100%;
+    height: 100vh;
     position: fixed;
     top: 0;
     z-index: 900;
-    min-width: 80vw;
+    overflow-y: auto !important;
 
     &:last-child {
       border-bottom: none;

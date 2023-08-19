@@ -16,6 +16,14 @@ const Navigation = ({ content }) => {
       }
     }
 
+    // Prevent scrolling when the menu is open
+    if (menuOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+    
+
     // Adding the click listener
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -23,7 +31,7 @@ const Navigation = ({ content }) => {
       // Removing the click listener when the component unmounts
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [setMenuOpen]); // Include setMenuOpen in the dependency array to capture the latest reference
+  }, [menuOpen, setMenuOpen]); // Include setMenuOpen in the dependency array to capture the latest reference
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -32,7 +40,7 @@ const Navigation = ({ content }) => {
   const displayValue = menuOpen ? 'flex' : 'none';
 
     return (
-      <div ref={navRef}>
+      <div ref={navRef} id="nav-menu-container">
         {!menuOpen && (
           <MobileNavButton onClick={() => setMenuOpen(!menuOpen)}>
             <FontAwesomeIcon icon={faBars} />

@@ -23,4 +23,10 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
+
+  body.no-scroll {
+    @media screen and (max-width: 999px) {
+      overflow: hidden;
+    }
+  }
 `;

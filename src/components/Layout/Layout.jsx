@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
     <ContentContainer id="main-content">
       {children}
     </ContentContainer>
-    <Footer id="footer"/>
+    {!menuOpen && <Footer id="footer"/> }
   </LayoutContainer>
   )
 };
