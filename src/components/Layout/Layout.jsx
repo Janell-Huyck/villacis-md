@@ -1,4 +1,4 @@
-import React, { useContext }  from 'react';
+import React from 'react';
 import Header from '../Header/Header';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import Footer from '../Footer/Footer';

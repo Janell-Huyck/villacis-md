@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, act } from '@testing-library/react';
+import { render, act, renderHook } from '@testing-library/react';
 import { MenuProvider, useMenuContext } from './MenuContext';
 
 // A test component that uses the context and allows us to manipulate it

@@ -1,9 +1,16 @@
 import React from 'react';
+import { render, mockGatsbyImageData } from '../../utils/test-utils';
 import HomePage from './HomePage';
 import withLanguage from '../../hocs/withLanguage';
-import { render } from '../../utils/test-utils';
+import { useStaticQuery } from 'gatsby';
+
+// Mock the useStaticQuery hook
+beforeEach(() => {
+  useStaticQuery.mockImplementationOnce(() => mockGatsbyImageData);
+});
 
 const WrappedHomePage = withLanguage(HomePage, 'HomePage');
+
 
 describe('HomePage', () => {
   it('renders the title correctly', () => {
