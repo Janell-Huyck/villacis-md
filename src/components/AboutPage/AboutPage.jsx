@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import withLanguage from '../../hocs/withLanguage';
-import { AboutPageContainer, AboutPageContent } from './AboutPage.styles';
+import { AboutPageContainer, AboutPageContent, NameAndImage } from './AboutPage.styles';
 
 const AboutPage = ({ content }) => {
 
@@ -39,49 +39,54 @@ const AboutPage = ({ content }) => {
             <AboutPageContent id="about-content">
             <ul>
                 {content.people.map((person, index) => (
-                    <li key={index}>
-                        <h3>{person.name}</h3>
-                        <h4>{person.title}</h4>
+                  <li key={index}>
+                      <NameAndImage>
+                        <div>
+                            <h3>{person.name}</h3>
+                            <h4>{person.title}</h4>
+                        </div>
                         <GatsbyImage
                             image={images[person.image]}
                             alt={person.name}
                             style={{
-                            width: '400px',
-                            height: '400px',
+                            maxWidth: '400px',
+                            maxHeight: '400px',
                             objectFit: 'cover',
                             objectPosition: 'center',
+                            margin: '10px auto',
                             }}
-                        />
+                      />
+                      </NameAndImage>
                         <div>
                             {person.bio.map((paragraph, pIndex) => (
                                 <p key={pIndex}>{paragraph}</p>
                             ))}
+                            {person.certifications && (
+                                <>
+                                <h5>{person.certificationsTitle}</h5>
+                                <p>{person.certifications.join(', ')}</p>
+                                </>
+                            )}
+                            {person.memberships && (
+                                <>
+                                <h5>{person.membershipsTitle}</h5>
+                                <p>{person.memberships.join(', ')}</p>
+                                </>
+                            )}
                         </div>
+
+                        <div>
                         {person.education && (
                             <ul>
-                                <h5>Education</h5>
+                                <h5>{person.educationTitle}</h5>
                                 {person.education.map((item, eIndex) => {
                                     const key = Object.keys(item)[0];
-                                    return <li key={eIndex}>{key}: {item[key]}</li>;
+                                    return <li key={eIndex}><em>{key}:</em> {item[key]}</li>;
                                 })}
                             </ul>
                         )}
-                        {person.certifications && (
-                            <ul>
-                                <h5>Certifications</h5>
-                                {person.certifications.map((item, cIndex) => (
-                                    <li key={cIndex}>{item}</li>
-                                ))}
-                            </ul>
-                        )}
-                        {person.memberships && (
-                            <ul>
-                                <h5>Memberships</h5>
-                                {person.memberships.map((item, mIndex) => (
-                                    <li key={mIndex}>{item}</li>
-                                ))}
-                            </ul>
-                        )}
+                        </div>
+                        <div className="inner-border"></div>
                     </li>
                 ))}
             </ul>

@@ -32,6 +32,15 @@ export const MainContent = styled.div`
   position: relative;
   flex-direction: column;
   align-items: center;
+  padding: 0 0.5rem;
+  padding-top: 2rem;
+
+  h4 {
+    margin: auto;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
 `;
 
 export const Footer = styled.footer`
