@@ -3,10 +3,10 @@ const content = {
   subtitle: "Conocer al equipo",
   people: [
       {
-          name: "Dra. Cynthia Villacis MD",
+          name: "Dra. Cynthia Villacís MD",
           title: "Médico de Familia y Life Coach",
           image: "brainz.jpg",
-          bio: ["La Dra. Cynthia Villacis abrió Health Connections Direct Primary Care en 2017 para brindarles a los pacientes el tiempo y la atención que necesitan sin las limitaciones típicas de una práctica basada en seguros.",
+          bio: ["La Dra. Cynthia Villacís abrió Health Connections Direct Primary Care en 2017 para brindarles a los pacientes el tiempo y la atención que necesitan sin las limitaciones típicas de una práctica basada en seguros.",
 
           "Habiendo lidiado personalmente con la obesidad, la presión arterial, la diabetes y la ansiedad, comprende cómo los problemas de salud pueden llevar a algunos médicos a hacer suposiciones sobre los intereses y habilidades de un paciente. En su práctica, se asegura de que sus pacientes nunca se enfrenten a tales juicios.",
           
@@ -14,7 +14,7 @@ const content = {
           
           "Ella cree en la creación de un entorno en el que los pacientes se sientan abiertos sobre sus vidas, permitiéndoles ayudarlos a buscar una mejor salud física, espiritual y emocional, personalizada según sus necesidades.",
           
-          "Residente del norte de Kentucky desde 1999, el Dr. Villacis disfruta de actividades al aire libre como kayak, natación, mochilero y buceo. Alienta a sus pacientes a mantenerse físicamente activos y explorar el mundo, independientemente de su tamaño, mientras trabajan para mejorar su salud."],
+          "Residente del norte de Kentucky desde 1999, el Dr. Villacís disfruta de actividades al aire libre como kayak, natación, mochilero y buceo. Alienta a sus pacientes a mantenerse físicamente activos y explorar el mundo, independientemente de su tamaño, mientras trabajan para mejorar su salud."],
           educationTitle: "Educación",
           education: [{ "Escuela Secundaria": "Sycamore, Montgomery, OH" },
                       {"De Licenciatura": "Oberlin College, Oberlin, OH"},
