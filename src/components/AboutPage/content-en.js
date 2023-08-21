@@ -3,10 +3,10 @@ const content = {
     subtitle: "Meet the team",
     people: [
         {
-            name: "Dr. Cynthia Villacís MD",
+            name: "Dr. Cynthia Villacis MD",
             title: "Family Physician and Life Coach",
             image: "brainz.jpg",
-            bio: ["Dr. Cynthia Villacís opened Health Connections Direct Primary Care in 2017 to provide patients the time and care they need without the typical constraints of an insurance-based practice.",
+            bio: ["Dr. Cynthia Villacis opened Health Connections Direct Primary Care in 2017 to provide patients the time and care they need without the typical constraints of an insurance-based practice.",
 
             "Having personally dealt with obesity, blood pressure, diabetes, and anxiety, she understands how health issues can lead some physicians to make assumptions about a patient's interests and abilities. In her practice, she ensures that her patients never face such judgments.",
             
@@ -14,7 +14,7 @@ const content = {
             
             "She believes in creating an environment where patients feel open about their lives, enabling her to help them pursue better physical, spiritual, and emotional health - personalized to their needs.",
             
-            "A resident of Northern Kentucky since 1999, Dr. Villacís enjoys outdoor activities like kayaking, swimming, backpacking, and scuba diving. She encourages her patients to stay physically active and explore the world, regardless of size, as they work towards better health."],
+            "A resident of Northern Kentucky since 1999, Dr. Villacis enjoys outdoor activities like kayaking, swimming, backpacking, and scuba diving. She encourages her patients to stay physically active and explore the world, regardless of size, as they work towards better health."],
             educationTitle: "Education",
             education: [{ "High School": "Sycamore, Montgomery, OH" },
                         {"Undergraduate": "Oberlin College, Oberlin, OH"},
