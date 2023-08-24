@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../../firebase/firebaseConfig'; // Assuming this is where your firebase configuration is
+import { db } from '../../firebase/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 
 const FirebaseTestTextPage = () => {
