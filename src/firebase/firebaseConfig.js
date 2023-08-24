@@ -18,7 +18,7 @@ const db = getFirestore(app);
 const auth = getAuth(app); // Firebase Authentication
 
 let analytics;
-if (isSupported()) {
+if (typeof window !== 'undefined' && isSupported()) {
   analytics = getAnalytics(app);
 }
 
