@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.GATSBY_FIREBASE_API_KEY,
@@ -14,8 +14,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// If you're using Firestore
 const db = getFirestore(app);
 const auth = getAuth(app); // Firebase Authentication
-const analytics = getAnalytics(app);
+
+let analytics;
+if (isSupported()) {
+  analytics = getAnalytics(app);
+}
+
 export { db, auth, analytics };
