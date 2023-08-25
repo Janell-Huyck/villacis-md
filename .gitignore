@@ -1,5 +1,6 @@
 node_modules/
 .cache/
-public
+public/
 .env
-*/firebase/firebase-service-account.json
+src/firebase/firebaseServiceAccount.json
+
