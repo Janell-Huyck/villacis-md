@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import useFirebaseDocument from '../../hooks/useFirebaseDocument';
+import { LanguageContext } from '../../contexts/LanguageContext';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import withLanguage from '../../hocs/withLanguage';
 import { AboutPageContainer, AboutPageContent, NameAndImage } from './AboutPage.styles';
 
-const AboutPage = ({ content }) => {
+const AboutPage = () => {
+  const { language } = useContext(LanguageContext);
+  const content = useFirebaseDocument('about', language);
 
-
-  // Querying the images
-  const data = useStaticQuery(graphql`
+    // Querying the images
+    const data = useStaticQuery(graphql`
     query {
       allFile(filter: { extension: { regex: "/(jpg)|(png)|(jpeg)/" } }) {
         nodes {
@@ -32,13 +34,13 @@ const AboutPage = ({ content }) => {
     return acc;
   }, {});
 
-  return (<AboutPageContainer>
-                <h1>{content.title}</h1>
-                <h2>{content.subtitle}</h2>
-              
-            <AboutPageContent id="about-content">
-            <ul>
-                {content.people.map((person, index) => (
+  return content ? (
+    <AboutPageContainer>
+      <h1>{content.title}</h1>
+      <h2>{content.subtitle}</h2>
+      <AboutPageContent id="about-content">
+        <ul>
+          {content.people.map((person, index) => (
                   <li key={index}>
                       <NameAndImage>
                         <div>
@@ -88,10 +90,13 @@ const AboutPage = ({ content }) => {
                         </div>
                         <div className="inner-border"></div>
                     </li>
-                ))}
-            </ul>
-            </AboutPageContent>
-          </AboutPageContainer>);
+                    ))}
+        </ul>
+      </AboutPageContent>
+    </AboutPageContainer>
+  ) : (
+    <div>Loading...</div>
+  );
 };
 
-export default withLanguage(AboutPage, "AboutPage");
+export default AboutPage;
