@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import useFirebaseDocument from '../../hooks/useFirebaseDocument';
 import { LanguageContext } from '../../contexts/LanguageContext';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery, navigate } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { AboutPageContainer, AboutPageContent, NameAndImage } from './AboutPage.styles';
 
 const AboutPage = () => {
   const { language } = useContext(LanguageContext);
-  const content = useFirebaseDocument('about', language);
+  const [content, loading] = useFirebaseDocument("about", language);
 
     // Querying the images
     const data = useStaticQuery(graphql`
@@ -34,7 +34,16 @@ const AboutPage = () => {
     return acc;
   }, {});
 
-  return content ? (
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!content) {
+    navigate('/404');
+    return null; // This will render nothing before the navigation occurs
+  }
+
+  return (
     <AboutPageContainer>
       <h1>{content.title}</h1>
       <h2>{content.subtitle}</h2>
@@ -79,13 +88,14 @@ const AboutPage = () => {
 
                         <div>
                         {person.education && (
-                            <ul>
-                                <h5>{person.educationTitle}</h5>
-                                {person.education.map((item, eIndex) => {
-                                    const key = Object.keys(item)[0];
-                                    return <li key={eIndex}><em>{key}:</em> {item[key]}</li>;
-                                })}
-                            </ul>
+                          <ul>
+                            <h5>{person.educationTitle}</h5>
+                            {person.education.map((eduEntry, eIndex) => (
+                              <li key={eIndex}>
+                                <em>{eduEntry.type}:</em> {eduEntry.institution}
+                              </li>
+                            ))}
+                          </ul>
                         )}
                         </div>
                         <div className="inner-border"></div>
@@ -94,8 +104,6 @@ const AboutPage = () => {
         </ul>
       </AboutPageContent>
     </AboutPageContainer>
-  ) : (
-    <div>Loading...</div>
   );
 };
 

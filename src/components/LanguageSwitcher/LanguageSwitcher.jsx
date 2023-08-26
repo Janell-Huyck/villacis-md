@@ -7,6 +7,8 @@ const LanguageSwitcher = () => {
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'es' : 'en');
+    console.log("Just set language in languageSwitcher to: ", language);
+
   };
 
   return (
