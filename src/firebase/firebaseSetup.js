@@ -1,12 +1,17 @@
 const admin = require('firebase-admin');
-const { getFirebaseServiceAccount } = require('./firebaseUtils'); 
+const { getFirebaseServiceAccount } = require('./firebaseUtils');
 
-const serviceAccount = getFirebaseServiceAccount();
+let db;
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+const initializeFirebase = () => {
+  const serviceAccount = getFirebaseServiceAccount();
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+  db = admin.firestore();
+};
 
-const db = admin.firestore();
+initializeFirebase();
 
-module.exports = { admin, db };
+module.exports = { admin, db, initializeFirebase };
+

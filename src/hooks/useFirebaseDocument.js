@@ -15,7 +15,6 @@ const useFirebaseDocument = (collection, language) => {
       if (docSnap.exists()) {
         setData(docSnap.data());
       } else {
-        console.log("No such document!");
         setData(null); // Explicitly set data to null if the document doesn't exist
       }
       setLoading(false); // Set loading to false after fetching data

@@ -1,43 +1,77 @@
-const admin = require('firebase-admin');
-const path = require('path');
-const fs = require('fs');
-const { getFirebaseServiceAccount } = require('./firebaseUtils');
+/**
+ * Tests for firebaseSetup.js
+ * 
+ * The purpose of these tests is to ensure that the Firebase Admin SDK and Firestore 
+ * are correctly initialized when firebaseSetup.js is executed.
+ * 
+ * To accomplish this, we mock external dependencies using Jest's mocking functionality:
+ * - `firebase-admin` is mocked to verify that the SDK's initialization methods are being called.
+ * - `getFirebaseServiceAccount` from 'firebaseUtils.js' is mocked to simulate getting a service account.
+ * 
+ * We are using Jest's mock functions (`jest.fn()`) to track calls to methods, and their arguments.
+ * 
+ * 1. The first test checks if Firebase Admin SDK is initialized with the correct service account credentials.
+ * 2. The second test ensures that Firestore is initialized.
+ *
+ * We reset all mocks and modules before each test to ensure that no state is shared between tests.
+ */
+const mockCert = jest.fn();
+const mockInit = jest.fn();
+const mockFirestore = jest.fn();
 
 jest.mock('firebase-admin', () => ({
-  initializeApp: jest.fn(),
+  initializeApp: mockInit,
   credential: {
-    cert: jest.fn(),
+    cert: mockCert,
   },
-  firestore: jest.fn(),
+  firestore: mockFirestore,
 }));
 
-jest.mock('fs', () => ({
-  readFileSync: jest.fn(),
+const mockGetFirebaseServiceAccount = jest.fn();
+
+jest.mock('./firebaseUtils', () => ({
+  getFirebaseServiceAccount: mockGetFirebaseServiceAccount,
 }));
 
-describe('Firebase Initialization', () => {
+describe('firebaseSetup', () => {
+  let firebaseSetup;
+  
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env.FIREBASE_SERVICE_ACCOUNT = './firebaseServiceAccount.json';
-  });
-
-  it('should initialize with correct credentials', () => {
-    const serviceAccountPath = path.resolve(__dirname, process.env.FIREBASE_SERVICE_ACCOUNT);
-    const serviceAccountJSON = JSON.stringify({ test: 'test' });
-    fs.readFileSync.mockReturnValue(serviceAccountJSON);
-
-    const serviceAccount = getFirebaseServiceAccount();
-
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
+    jest.resetModules();
+    mockGetFirebaseServiceAccount.mockReturnValue({
+        type: "service_account",
+        project_id: "project_id",
+        private_key_id: "private_key_id",
+        clientEmail: "client_email",
+        clientId: "client_id",
+        authUri: "auth_uri",
+        tokenUri: "token_uri",
+        authProviderX509CertUrl: "auth_provider_x509_cert_url",
+        clientX509CertUrl: "client_x509_cert_url",
+        universeDomain: "universe_domain",
     });
-
-    expect(fs.readFileSync).toHaveBeenCalledWith(serviceAccountPath, 'utf8');
-    expect(admin.credential.cert).toHaveBeenCalledWith(JSON.parse(serviceAccountJSON));
+    firebaseSetup = require('./firebaseSetup');
+    firebaseSetup.initializeFirebase();
   });
-  
-  it('should initialize Firestore database', () => {
-    require('./firebaseSetup');
-    expect(admin.firestore).toHaveBeenCalled();
-  }); 
+
+  it('should initialize Firebase Admin SDK with correct credentials', () => {
+    expect(mockCert).toHaveBeenCalledWith({
+      type: "service_account",
+      project_id: "project_id",
+      private_key_id: "private_key_id",
+      clientEmail: "client_email",
+      clientId: "client_id",
+      authUri: "auth_uri",
+      tokenUri: "token_uri",
+      authProviderX509CertUrl: "auth_provider_x509_cert_url",
+      clientX509CertUrl: "client_x509_cert_url",
+      universeDomain: "universe_domain",
+    });
+    expect(mockInit).toHaveBeenCalled();
+  });
+
+  it('should set up Firestore', () => {
+    expect(mockFirestore).toHaveBeenCalled();
+  });
 });

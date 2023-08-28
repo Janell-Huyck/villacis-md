@@ -1,8 +1,15 @@
+  // AboutPage.test.jsx
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import AboutPage from './AboutPage';
 import * as hooks from '../../hooks/useFirebaseDocument';
 import { LanguageContext } from '../../contexts/LanguageContext';
+import { navigate } from 'gatsby'; 
+
+
+jest.mock('gatsby', () => ({
+  navigate: jest.fn(),
+}));
 
 jest.mock('../../hooks/useFirebaseDocument');
 
@@ -17,10 +24,20 @@ describe('AboutPage', () => {
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
+
   it('redirects to 404 if content is missing', async () => {
-    // You may need to mock the navigate function and check if it was called
-    // Implement this test based on your navigation strategy
+    hooks.useFirebaseDocument.mockReturnValue([null, false]); // Content is missing
+    render(
+      <LanguageContext.Provider value={{ language: 'en' }}>
+        <AboutPage />
+      </LanguageContext.Provider>
+    );
+
+    await waitFor(() => {
+      expect(navigate).toHaveBeenCalledWith('/404'); // Check if navigate was called with '/404'
+    });
   });
+
 
   it('renders content properly', async () => {
     const mockData = {
