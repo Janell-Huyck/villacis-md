@@ -74,7 +74,7 @@ describe('AboutPage', () => {
     await waitFor(() => {
       expect(screen.getByText(/about us/i)).toBeInTheDocument();
       expect(screen.getByText(/meet the team/i)).toBeInTheDocument();
-      expect(screen.getByRole('img')).toBeInTheDocument(); // assuming the image loads
+      expect(screen.getByRole('img')).toBeInTheDocument(); 
       expect(screen.getByText(/john doe/i)).toBeInTheDocument();
       expect(screen.getByText(/ceo/i)).toBeInTheDocument();
     });
@@ -90,8 +90,8 @@ describe('AboutPage', () => {
     // Check for memberships
     expect(screen.getByText(mockData.people[0].memberships.join(', '))).toBeInTheDocument();
 
-    // Check for education. Here you could target the HTML structure rather than the text
+    // Check for education.
     const educationListItems = screen.getAllByRole('listitem');
-    expect(educationListItems).toHaveLength(2); // or however many you expect
+    expect(educationListItems).toHaveLength(2); 
   });
 });

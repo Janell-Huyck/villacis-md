@@ -1,29 +1,44 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase/firebaseConfig';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 
-const useFirebaseDocument = (collection, language) => {
+const useFirebaseDocument = (collectionBase, language) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true); // Add a new loading state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true); // Set loading to true when collection or language changes
+    setLoading(true);
+    setError(null);
+
     const fetchData = async () => {
-      const docRef = doc(db, collection, language);
-      const docSnap = await getDoc(docRef);
+      try {
+        const newCollectionName = `${collectionBase}_${language}`;
+        const q = query(
+          collection(db, newCollectionName),
+          orderBy("createdAt", "desc"),
+          limit(1)
+        );
 
-      if (docSnap.exists()) {
-        setData(docSnap.data());
-      } else {
-        setData(null); // Explicitly set data to null if the document doesn't exist
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          const mostRecentDoc = querySnapshot.docs[0];
+          setData(mostRecentDoc.data());
+        } else {
+          setData(null);
+        }
+        setLoading(false);
+
+      } catch (e) {
+        setLoading(false);
+        setError(e.message);
       }
-      setLoading(false); // Set loading to false after fetching data
-    };
+  };
 
-    fetchData();
-  }, [collection, language]);
+  fetchData();
+}, [collectionBase, language]);
 
-  return [data, loading]; // Return both data and loading state
+  return [data, loading, error];
 };
 
 export default useFirebaseDocument;
