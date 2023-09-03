@@ -105,8 +105,6 @@ describe('getFirebaseServiceAccount', () => {
     expect(result).toEqual(JSON.parse(fakeServiceAccount));
   });
   
-  
-
   it('should throw an error if the JSON in the service account file is malformed', () => {
     setupEnv(developmentEnv);
     const serviceAccountPath = path.resolve(__dirname, process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -165,6 +163,5 @@ describe('getFirebaseServiceAccount', () => {
     expect(fs.readFileSync).toHaveBeenCalledWith(path.resolve(__dirname, './firebaseServiceAccount.json'), 'utf8');
   });
   
-
 });
 
