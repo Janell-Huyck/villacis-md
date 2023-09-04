@@ -48,7 +48,7 @@ export const fetchMostRecentDoc = async (collectionName) => {
   try {
     const q = query(
       collection(db, collectionName),
-      orderBy('timestamp', 'desc'),
+      orderBy('createdAt', 'desc'),
       limit(1)
     );
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { generateCollectionNames, fetchMostRecentDoc } from '../../firebase/firebaseOperations';
 import useAllPageNames from '../../hooks/useAllPageNames';
+import { FlexContainer, HighlightKey } from './AdminEditForm.styles';
 
 const AdminEditForm = () => {
   const pageNames = useAllPageNames();
@@ -15,27 +16,22 @@ const AdminEditForm = () => {
       setIsLoading(true);
       try {
         const collectionNames = await generateCollectionNames(pageNames);
-        console.log(collectionNames);
         setCollections(collectionNames);
       } catch (error) {
         console.error('Error fetching collections: ', error);
       }
       setIsLoading(false);
-      console.log('Done fetching collections');
-      console.log("collections: ", collections)
     };
 
     getCollections();
   }, []);
 
   useEffect(() => {
-    const fetchDocument = async (selectedCollection) => {
+    const fetchDocument = async () => {
       if (selectedCollection) {
         const document = await fetchMostRecentDoc(selectedCollection);
         setMostRecentDoc(document);
       }
-      console.log('Done fetching document');
-      console.log("mostRecentDoc: ", mostRecentDoc)
     };
 
     fetchDocument();
@@ -45,6 +41,43 @@ const AdminEditForm = () => {
     setSelectedCollection(e.target.value);
   };
 
+  const renderField = (key, value) => {
+    if (value == true || value == false) {
+      return value.toString();
+    }
+    if (key === 'createdAt' || key === 'updatedAt') {
+      const date = new Date(value.seconds * 1000);
+      return date.toString();
+    }
+    if (value == null) {
+      return 'null';
+    }
+    if (value && typeof value === 'object') {
+      if (Array.isArray(value)) {
+        // Handle array recursively
+        return (
+          <ul>
+            {value.map((v, i) => (
+              <li key={i}>{renderField(i.toString(), v)}</li>
+            ))}
+          </ul>
+        );
+        
+      } else {
+        // Handle object recursively
+        return (
+          <ul>
+            {Object.keys(value).map((key) => (
+              <li key={key}>
+                <HighlightKey>{key}:</HighlightKey> {renderField(key, value[key])}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+    }
+    return value;  // For primitive types like string, number, boolean, etc.
+  };
 
   return (
     <div>
@@ -62,7 +95,17 @@ const AdminEditForm = () => {
               </option>
             ))}
           </select>
-          {mostRecentDoc && <pre>{JSON.stringify(mostRecentDoc, null, 2)}</pre>}
+            {mostRecentDoc && (
+              <ul>
+           <FlexContainer>
+          {Object.keys(mostRecentDoc).map((key) => (
+            <li key={key}>
+              <HighlightKey>{key}:</HighlightKey> {renderField(key, mostRecentDoc[key])}
+            </li>
+          ))}
+                </FlexContainer>
+                </ul>
+          )}
         </>
       )}
     </div>
