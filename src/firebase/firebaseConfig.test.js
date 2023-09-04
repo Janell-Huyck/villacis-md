@@ -106,5 +106,4 @@ describe('Firebase Client-Side Initialization', () => {
     expect(mockGetAnalytics).toHaveBeenCalledTimes(1);
   });
 
-
 });

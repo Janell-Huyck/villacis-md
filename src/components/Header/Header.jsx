@@ -1,9 +1,10 @@
 import React from 'react';
 import Navigation from '../Navigation/Navigation';
 import withLanguage from '../../hocs/withLanguage';
+import UserInfo from '../UserInfo/UserInfo';
 import { HeaderContainer, LogoContainer, ActionContainer } from './Header.styles';
 
-const Header = ({ content }) => {
+const Header = () => {
    
     return (
             <HeaderContainer id="header-container">
@@ -15,7 +16,7 @@ const Header = ({ content }) => {
                 <h2>513-555-1212</h2>
                 <h2>Join Us Button</h2>
               </ActionContainer>
-
+              <UserInfo />
             </HeaderContainer>
             )};
 

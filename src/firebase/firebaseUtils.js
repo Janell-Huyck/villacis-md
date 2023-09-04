@@ -14,7 +14,6 @@ const requiredEnvVars = [
   'FIREBASE_CLIENT_X509_CERT_URL',
   'FIREBASE_UNIVERSE_DOMAIN',
 ];
-
 class MissingEnvVarsError extends Error {
   constructor(missingVars) {
     super(`Missing required environment variables: ${missingVars.join(', ')}`);
@@ -55,20 +54,16 @@ const fetchProductionServiceAccount = () => {
 };
 
 const fetchDevServiceAccount = () => {
-  console.log("in fetchDevServiceAccount, FIREBASE_SERVICE_ACCOUNT: ", process.env.FIREBASE_SERVICE_ACCOUNT)
   if (!process.env.FIREBASE_SERVICE_ACCOUNT || process.env.FIREBASE_SERVICE_ACCOUNT === '' || process.env.FIREBASE_SERVICE_ACCOUNT === 'undefined') {
     throw new Error("FIREBASE_SERVICE_ACCOUNT is undefined");
   }
   const serviceAccountPath = path.resolve(__dirname, process.env.FIREBASE_SERVICE_ACCOUNT);
   try {
-    console.log("fs.readFileSync(serviceAccountPath, 'utf8'): ", fs.readFileSync(serviceAccountPath, 'utf8'))
     return JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
   } catch (error) {
-    console.log("error: ", error)
     throw new Error('Failed to read or parse service account file');
   }
 };
-
 
 const getFirebaseServiceAccount = () => {
   validateRequiredEnvVars();
