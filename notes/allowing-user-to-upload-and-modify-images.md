@@ -32,6 +32,9 @@ const handleFileUpload = async (event) => {
 };
 ```
 
+Certainly, I'll remember that the strategy for handling images on your admin page is to use a WYSIWYG editor in conjunction with an image optimization library. When an image is uploaded, it will be intercepted and optimized before being inserted back into the editor.
+
+The other thing you asked me to remember is your new workflow for dealing with database updates and Netlify builds. Specifically, when a user wants to make changes to the Firestore database, a form will be submitted. The save button on the form will trigger both the creation of a new document in Firestore and a new build on Netlify after a short wait. Netlify will then create new static HTML files as per Gatsby's instructions.
 ---
 
 #### Section 2: Set Up the Backend (Netlify Functions)

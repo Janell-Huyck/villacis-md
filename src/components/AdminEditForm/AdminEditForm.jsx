@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { generateCollectionNames, fetchMostRecentDoc } from '../../firebase/firebaseOperations';
 import useAllPageNames from '../../hooks/useAllPageNames';
+import { renderField } from '../../utils/pageUtils';
 import { FlexContainer, HighlightKey } from './AdminEditForm.styles';
+import UpdatePageButton from '../UpdatePageButton/UpdatePageButton';
 
 const AdminEditForm = () => {
   const pageNames = useAllPageNames();
@@ -24,7 +26,7 @@ const AdminEditForm = () => {
     };
 
     getCollections();
-  }, []);
+  }, [pageNames]);
 
   useEffect(() => {
     const fetchDocument = async () => {
@@ -41,43 +43,7 @@ const AdminEditForm = () => {
     setSelectedCollection(e.target.value);
   };
 
-  const renderField = (key, value) => {
-    if (value == true || value == false) {
-      return value.toString();
-    }
-    if (key === 'createdAt' || key === 'updatedAt') {
-      const date = new Date(value.seconds * 1000);
-      return date.toString();
-    }
-    if (value == null) {
-      return 'null';
-    }
-    if (value && typeof value === 'object') {
-      if (Array.isArray(value)) {
-        // Handle array recursively
-        return (
-          <ul>
-            {value.map((v, i) => (
-              <li key={i}>{renderField(i.toString(), v)}</li>
-            ))}
-          </ul>
-        );
-        
-      } else {
-        // Handle object recursively
-        return (
-          <ul>
-            {Object.keys(value).map((key) => (
-              <li key={key}>
-                <HighlightKey>{key}:</HighlightKey> {renderField(key, value[key])}
-              </li>
-            ))}
-          </ul>
-        );
-      }
-    }
-    return value;  // For primitive types like string, number, boolean, etc.
-  };
+
 
   return (
     <div>
@@ -94,7 +60,8 @@ const AdminEditForm = () => {
                 {name}
               </option>
             ))}
-          </select>
+            </select>
+            <UpdatePageButton data={mostRecentDoc} />
             {mostRecentDoc && (
               <ul>
            <FlexContainer>

@@ -1,4 +1,4 @@
-// test-utils.js
+// testUtils.js
 import React from 'react';
 import { render as rtlRender } from '@testing-library/react';
 import { LanguageContext } from '../contexts/LanguageContext';

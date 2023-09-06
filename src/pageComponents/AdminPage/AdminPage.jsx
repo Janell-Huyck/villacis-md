@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,  useCallback } from 'react';
 import { auth } from '../../firebase/firebaseConfig';
-import AuthForm from '../AuthForm/AuthForm';
-import AdminActions from '../AdminActions/AdminActions';
-import AdminInstructions from '../AdminInstructions/AdminInstructions';
-import AdminEditForm from '../AdminEditForm/AdminEditForm';
+import AuthForm from '../../components/AuthForm/AuthForm';
+import AdminActions from '../../components/AdminActions/AdminActions';
+import AdminInstructions from '../../components/AdminInstructions/AdminInstructions';
+import AdminEditForm from '../../components/AdminEditForm/AdminEditForm';
 
 const AdminPage = () => {
   const [user, setUser] = useState(null);
@@ -15,15 +15,15 @@ const AdminPage = () => {
     });
   };
 
-  const handleSuccessfulLogin = async (user) => {
+  const handleSuccessfulLogin = useCallback(async (user) => {
     setUser(user);
     setUserRole(user);
-  }
+  }, []);
 
-  const handleUnsuccessfulLogin = async () => {
+  const handleUnsuccessfulLogin = useCallback(async () => {
     setUser(null);
     setRole("");
-  }
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -35,7 +35,7 @@ const AdminPage = () => {
     });
   
     return () => unsubscribe();
-  }, []);
+  },  [handleSuccessfulLogin, handleUnsuccessfulLogin]);
   
   return (
     <div>

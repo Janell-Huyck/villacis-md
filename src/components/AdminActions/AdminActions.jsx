@@ -13,9 +13,7 @@ const AdminActions = () => {
         <AdminSection>
           <p><b>This is the admin section</b></p>
           <p>You are currently logged in with an admin account. It is my intent that you should be able to create employee-level accounts from here, but I haven't gotten it worked out yet how to do that.</p>
-          <p>I have this suggestion from ChatGPT on how to proceed:</p>
-          <h4>Using Firebase Cloud Functions</h4>
-          <p><em>You could set up a Firebase Cloud Function that listens to changes in Firestore. Whenever a new user document is created in the users collection, this function could trigger and set the custom claims. Then, the Firebase Cloud Function could be called from your client-side Gatsby code securely.</em></p>
+          <p>For now, you can use the Firebase console to create new accounts. You can also use the Firebase console to edit the database directly, but I don't recommend it. Instead, use the "Edit Page" button on the page you want to edit.</p>          
         </AdminSection>
       )}
     </AdminContainer>

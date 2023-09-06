@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, mockGatsbyImageData } from '../../utils/test-utils';
+import { render, mockGatsbyImageData } from '../../utils/testUtils';
 import HomePage from './HomePage';
 import withLanguage from '../../hocs/withLanguage';
 import { useStaticQuery } from 'gatsby';
