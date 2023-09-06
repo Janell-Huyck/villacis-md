@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout/Layout';
-import AboutPage from '../components/AboutPage/AboutPage';
+import AboutPage from '../pageComponents/AboutPage/AboutPage';
 
 const About =() => (
   <Layout>

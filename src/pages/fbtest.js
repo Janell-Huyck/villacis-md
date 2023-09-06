@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout/Layout';
-import FirebaseTestTextPage from '../components/FirebaseTestPage/FirebaseTestTextPage';
+import FirebaseTestTextPage from '../pageComponents/FirebaseTestPage/FirebaseTestTextPage';
 
 const FirebaseTest =() => (
   <Layout>

@@ -26,7 +26,7 @@
  * Each test is designed to validate one of these scenarios, using the appropriate mocks and expectations.
  */
 const { getFirebaseServiceAccount, MissingEnvVarsError } = require('./firebaseUtils');
-import { setupEnv } from '../utils/test-utils';
+import { setupEnv } from '../utils/testUtils';
 const fs = require('fs');
 const path = require('path');
 jest.mock('fs');
